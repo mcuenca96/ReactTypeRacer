@@ -1,25 +1,26 @@
 import {
     CLEAR_TEXT,
+    COUNTDOWN,
     CURRENT_INPUT,
+    GAME_OVER,
     LEVEL_INCREASE,
-    OBTAIN_HEADLINES,
+    OBTAIN_QUOTE,
 } from "../../types"
 
 const initialState = {
-    headlines: [],
-    error: null,
-    loading: true,
+    quotes: [],
     level: 0,
     currentText: "",
     currentTime: 30,
+    start: false,
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case OBTAIN_HEADLINES:
+        case OBTAIN_QUOTE:
             return {
                 ...state,
-                headlines: action.payload,
+                quotes: action.payload,
             }
 
         case LEVEL_INCREASE:
@@ -42,7 +43,14 @@ export default (state = initialState, action) => {
                 currentText: "",
             }
 
+        case COUNTDOWN:
+            return {
+                ...state,
+                currentTime: state.currentTime - 1,
+            }
+
+        case GAME_OVER:
         default:
-            return state
+            return initialState
     }
 }

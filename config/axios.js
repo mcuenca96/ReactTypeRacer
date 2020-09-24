@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const axiosClient = axios.create({
-    baseURL: "https://newsapi.org/v2/",
+    baseURL: "https://breaking-bad-quotes.herokuapp.com/v1/",
 })
 
 export default axiosClient

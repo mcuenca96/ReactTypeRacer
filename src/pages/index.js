@@ -1,19 +1,27 @@
 import React from "react"
-import NewsTitle from "../components/NewsTitle"
 import Layout from "../components/layout"
 import Header from "../components/Header"
-import InputText from "../components/InputText"
-import CurrentLevel from "../components/CurrentLevel"
+import { Link } from "gatsby"
+import { connect } from "react-redux"
+import { resetGame } from "../actions/racerAction"
 
-const IndexPage = () => {
+const IndexPage = props => {
+    const { resetGame } = props
+
     return (
         <Layout>
             <Header />
-            <NewsTitle />
-            <InputText />
-            <CurrentLevel />
+            <div className="text-center">
+                <button
+                    type="button"
+                    className="bg-red-700 rounded p-4 uppercase"
+                    onClick={() => resetGame()}
+                >
+                    <Link to="/play">Start Game</Link>
+                </button>
+            </div>
         </Layout>
     )
 }
 
-export default IndexPage
+export default connect(null, { resetGame })(IndexPage)

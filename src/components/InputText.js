@@ -3,18 +3,16 @@ import { connect } from "react-redux"
 import { compareText } from "../actions/racerAction"
 
 const InputText = props => {
-    const { headlines, level, currentText, compareText } = props
+    const { quotes, level, currentText, compareText } = props
 
-    const currentHeadline = headlines[level]
+    const currentQuote = quotes[level]
 
     return (
         <div className="flex justify-center">
             <input
                 tye="text"
                 className="border-double border-4 border-black-400 w-3/6"
-                onChange={e =>
-                    compareText(e.target.value, currentHeadline.author)
-                }
+                onChange={e => compareText(e.target.value, currentQuote.quote)}
                 value={currentText}
             />
         </div>
@@ -22,7 +20,7 @@ const InputText = props => {
 }
 
 const mapStateToProps = state => ({
-    headlines: state.data.headlines,
+    quotes: state.data.quotes,
     level: state.data.level,
     currentText: state.data.currentText,
 })

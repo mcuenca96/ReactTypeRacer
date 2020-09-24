@@ -1,21 +1,21 @@
 import {
     CURRENT_INPUT,
     LEVEL_INCREASE,
-    OBTAIN_HEADLINES,
+    OBTAIN_QUOTE,
     CLEAR_TEXT,
+    COUNTDOWN,
+    GAME_OVER,
 } from "../../types"
 import axiosClient from "../../config/axios"
 
-export function getHeadlines() {
+export function getQuotes() {
     return async dispatch => {
         try {
-            const response = await axiosClient.get(
-                `everything?q=videogames&apiKey=${process.env.API_KEY}`
-            )
+            const response = await axiosClient.get("quotes/3")
 
             dispatch({
-                type: OBTAIN_HEADLINES,
-                payload: response.data.articles,
+                type: OBTAIN_QUOTE,
+                payload: response.data,
             })
         } catch (error) {
             console.log(error)
@@ -23,14 +23,14 @@ export function getHeadlines() {
     }
 }
 
-export function compareText(inputText, headlineText) {
-    if (inputText === headlineText) {
+export function compareText(inputText, quote) {
+    if (inputText === quote) {
         return dispatch => {
             dispatch({
                 type: LEVEL_INCREASE,
             })
         }
-    } else if (inputText.length === headlineText.length) {
+    } else if (inputText.length === quote.length) {
         return dispatch => {
             dispatch({
                 type: CLEAR_TEXT,
@@ -43,5 +43,21 @@ export function compareText(inputText, headlineText) {
                 payload: inputText,
             })
         }
+    }
+}
+
+export function countdown() {
+    return dispatch => {
+        dispatch({
+            type: COUNTDOWN,
+        })
+    }
+}
+
+export function resetGame() {
+    return dispatch => {
+        dispatch({
+            type: GAME_OVER,
+        })
     }
 }
